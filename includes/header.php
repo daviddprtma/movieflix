@@ -1,6 +1,13 @@
 <?php
     session_start();
     define("APPURL", "http://localhost/movieflix");
+
+    require dirname(dirname(__FILE__))."../config/config.php";
+
+    $categories = $conn->query("SELECT * FROM genres");
+    $categories->execute();
+
+    $allCategories = $categories->fetchAll(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -50,18 +57,18 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="<?php echo APPURL;?>">Homepage</a></li>
-                                <li><a href="./categories.html">Categories <span class="arrow_carrot-down"></span></a>
+                                <li><a href="#">Categories <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <li><a href="./categories.html">Magic</a></li>
-                                        <li><a href="./categories.html">Avdenture</a></li>
-                                        <li><a href="./categories.html">Action</a></li>
+                                        <?php foreach($allCategories as $category) : ?>
+                                        <li><a href="<?php echo APPURL; ?>/categories.php?name=<?php echo $category->name; ?>"><?php echo $category->name; ?></a></li>
+                                        <?php endforeach; ?>
                                     </ul>
                                 </li>
                                 <?php if(isset($_SESSION['username'])) :?>
                                 <li><a href="#"><?php echo $_SESSION['username']; ?> <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">Magic</a></li>
-                                        <li><a href="./categories.html">Avdenture</a></li>
+                                        <li><a href="./categories.html">Adventure</a></li>
                                         <li><a href="<?php echo APPURL; ?>/auth/logout.php">Logout</a></li>
                                     </ul>
                                 </li>

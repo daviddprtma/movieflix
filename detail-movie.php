@@ -1,8 +1,92 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
 <?php
     require 'includes/header.php';
+?>
+
+<?php
+    require 'config/config.php';
+?>
+
+<?php
+
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+
+        $show = $conn->query("SELECT * FROM shows WHERE id = '.$id'");
+
+        $detailMovie = $conn->query("SELECT shows.id AS id, shows.image AS image, shows.num_available AS num_available, shows.num_total AS num_total, shows.title AS title, shows.genre AS genre, shows.type AS type,
+        shows.description AS description, shows.duration AS duration, shows.date_aired AS created_at, shows.quality AS quality,
+        shows.status AS status, shows.studios AS studios,
+        COUNT(views.show_id) AS count_views
+        FROM shows  
+        JOIN views on shows.id = views.show_id 
+        WHERE shows.id = '$id'
+        GROUP BY (shows.id)");
+    
+        $detailMovie->execute();
+    
+        $allDetailMovie = $detailMovie->fetch(PDO::FETCH_OBJ);
+
+            // For u shows
+        $forUShow = $conn->query("SELECT shows.id AS id, shows.image AS image, shows.num_available AS num_available, shows.num_total AS num_total, shows.title AS title, shows.genre AS genre, shows.type AS type,
+        COUNT(views.show_id) AS count_views
+        FROM shows
+        JOIN views on shows.id = views.show_id 
+        GROUP BY (shows.id)
+        ORDER BY shows.created_at DESC");
+
+        $forUShow->execute();
+
+        $allForUShow = $forUShow->fetchAll(PDO::FETCH_OBJ);
+
+        // comments
+        $comments = $conn->query('SELECT * FROM comments WHERE show_id = '.$id.'');
+        $comments->execute();
+
+        $allComments = $comments->fetchAll(PDO::FETCH_OBJ);
+
+        // following
+        if(isset($_POST['submit'])){
+            $show_id = $_POST['show_id'];
+            $user_id = $_POST['user_id'];
+
+            $follow = $conn->prepare("INSERT INTO followings (show_id, user_id) VALUES (:show_id, :user_id)");
+            $follow->execute([
+                ":show_id" => "$show_id",
+                ":user_id" => "$user_id"
+            ]);
+            echo "<script>alert('you followed this show')</script>";
+
+            // header("location: ".APPURL."/detail-movie.php?id=".$id."");
+        }
+
+        // checking if user follow a show
+        $checkFollowing = $conn->query("SELECT * FROM followings WHERE show_id='$id' AND user_id='$_SESSION[user_id]'");
+        $checkFollowing->execute();
+
+        // inserting comments
+        if(isset($_POST['inserting_comments'])){
+
+            if(empty($_POST['comment'])){
+                echo "<script>alert('Comment is empty')</script>";
+            }
+            else{
+                $comment = $_POST['comment'];
+                $show_id = $id;
+                $user_id = $_SESSION['user_id'];
+                $user_name = $_SESSION['username'];
+
+                $insert = $conn->prepare("INSERT INTO comments (comment,show_id,user_id,user_name) VALUES (:comment,:show_id,:user_id,:user_name)");
+                $insert->execute([
+                    ":comment"=> $comment,
+                    ":show_id"=> $show_id,
+                    ":user_id"=> $user_id,
+                    ":user_name"=> $user_name,
+                ]);         
+                echo "<script>alert('Comment added')</script>";
+            }
+        }
+    
+    }
 ?>
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">
@@ -10,9 +94,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./categories.html">Categories</a>
-                        <span>Romance</span>
+                        <a href="<?php echo APPURL; ?>"><i class="fa fa-home"></i> Home</a>
+                        <a href="<?php echo APPURL; ?>/detail-movie.php?id=<?php echo $allDetailMovie->id;?>">Details</a>
+                        <span><?php echo $allDetailMovie->title;?>  </span>
                     </div>
                 </div>
             </div>
@@ -26,44 +110,51 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="img/one-piece.jpg">
-                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                        <div class="anime__details__pic set-bg" data-setbg="img/<?php echo $allDetailMovie->image;?>">
+                            <div class="view"><i class="fa fa-eye"></i> <?php echo $allDetailMovie->count_views;?></div>
                         </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>One Piece</h3>
+                                <h3><?php echo $allDetailMovie->title;?></h3>
                             </div>
                            
                             <p>
-                                One Piece is a Japanese manga series written and illustrated by Eiichiro Oda. It has been serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump since July 1997, with its individual chapters compiled into 107 tankōbon volumes as of November 2023.
+                            <?php echo $allDetailMovie->description;?>
                             </p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>Type:</span> Movie Series</li>
-                                            <li><span>Studios:</span> Toei Animation</li>
-                                            <li><span>Genres:</span> Action, Comedy, Series</li>
-                                            <li><span>Date aired:</span> July 22, 1997 - present</li>
-                                            <li><span>Status:</span> Active</li>
+                                            <li><span>Type:</span> <?php echo $allDetailMovie->type;?></li>
+                                            <li><span>Studios:</span> <?php echo $allDetailMovie->studios;?></li>
+                                            <li><span>Genres:</span> <?php echo $allDetailMovie->genre;?></li>
+                                            <li><span>Date aired:</span> <?php echo $allDetailMovie->created_at;?></li>
+                                            <li><span>Status:</span> <?php echo $allDetailMovie->status;?></li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>Duration:</span> 26 min/eps</li>
-                                            <li><span>Quality:</span> HD</li>
-                                            <li><span>Views:</span> 131,541</li>
+                                            <li><span>Duration:</span> <?php echo $allDetailMovie->duration;?></li>
+                                            <li><span>Quality:</span> <?php echo $allDetailMovie->quality;?></li>
+                                            <li><span>Views:</span> <?php echo $allDetailMovie->count_views;?></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
+                                <form action="detail-movie.php?id=<?php echo $id; ?>" method="POST">
+                                <input type="text" value="<?php echo $id;?>" name="show_id" hidden>
+                                <input type="text" value="<?php echo $_SESSION['user_id'];?>" name="user_id" hidden>
+                                <?php if($checkFollowing->rowCount() > 0) : ?>
+                                    <button name="submit" type="submit" class="follow-btn" disabled><i class="fa fa-heart-o" style="color: green;"></i> Followed</button>
+                                <?php else :  ?>
+                                    <button name="submit" type="submit" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</button>
+                                <?php endif; ?>
                                 <a href="anime-watching.html" class="watch-btn"><span>Watch Now</span> <i
                                     class="fa fa-angle-right"></i></a>
+                                </form>                                
                                 </div>
                             </div>
                         </div>
@@ -73,72 +164,24 @@
                     <div class="col-lg-8 col-md-8">
                         <div class="anime__details__review">
                             <div class="section-title">
-                                <h5>Reviews</h5>
+                                <h5>Comments</h5>
                             </div>
+                            <?php foreach($allComments as $comment):?>
                             <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/review-1.jpg" alt="">
-                                </div>
                                 <div class="anime__review__item__text">
-                                    <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                    <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                    "demons" LOL</p>
+                                    <h6><?php echo $comment->user_name;?> <span><?php echo $comment->created_at;?></span></h6>
+                                    <p><?php echo $comment->comment;?></p>
                                 </div>
                             </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/review-2.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                    <p>Finally it came out ages ago</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/review-3.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                    <p>Where is the episode 15 ? Slow update! Tch</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/review-4.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                    <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                    "demons" LOL</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/review-5.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                    <p>Finally it came out ages ago</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/review-6.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                    <p>Where is the episode 15 ? Slow update! Tch</p>
-                                </div>
-                            </div>
+                            <?php endforeach;?>
                         </div>
                         <div class="anime__details__form">
                             <div class="section-title">
                                 <h5>Your Comment</h5>
                             </div>
-                            <form action="#">
-                                <textarea placeholder="Your Comment"></textarea>
-                                <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
+                            <form method="POST" action="<?php echo APPURL;?>/detail-movie.php?id=<?php echo $id;?>">
+                                <textarea name="comment" placeholder="Your Comment"></textarea>
+                                <button name="inserting_comments" type="submit"><i class="fa fa-location-arrow"></i> Comment</button>
                             </form>
                         </div>
                     </div>
@@ -147,26 +190,13 @@
                             <div class="section-title">
                                 <h5>you might like...</h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/the_marvels.jpeg">
-                                <div class="ep">18 / 18</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">The Marvels</a></h5>
+                            <?php foreach($allForUShow as $forUShow):?>
+                            <div class="product__sidebar__view__item set-bg" data-setbg="img/<?php echo $forUShow->image;?>">
+                                <div class="ep"><?php echo $forUShow->num_available; ?> / <?php echo $forUShow->num_total; ?></div>
+                                <div class="view"><i class="fa fa-eye"></i> <?php echo $forUShow->count_views; ?></div>
+                                <h5><a href="<?php echo APPURL;?>/detail-movie.php?id=<?php echo $forUShow->id;?>"><?php echo $forUShow->title; ?></a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/the_killer.jpeg">
-                                <div class="ep">18 / 18</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">The Killer</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/barbie.jpeg">
-                                <div class="ep">18 / 18</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Barbie</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/the_super_mario_bros.jpeg">
-                                <div class="ep">18 / 18</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">The Super Mario Bros</a></h5>
-                            </div>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>
@@ -175,4 +205,3 @@
         <!-- Anime Section End -->
 
         <?php require 'includes/footer.php';?>
-    </html>

@@ -1,14 +1,14 @@
 <?php
 try{
-define('HOST','localhost');
+ $HOST = "localhost";
 
-define('DBNAME','movieflix');
+ $DBNAME = "movieflix";
 
-define('USER','root');
+ $USER = "root";
 
-define('PASS','');
+ $PASS = "";
 
-$conn = new PDO('mysql:host='.HOST.';dbname='.DBNAME,USER,PASS);
+$conn = new PDO('mysql:host='.$HOST.';dbname='.$DBNAME,$USER,$PASS);
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

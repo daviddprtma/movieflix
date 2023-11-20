@@ -60,6 +60,18 @@
     $liveAction->execute();
 
     $allLiveAction = $liveAction->fetchAll(PDO::FETCH_OBJ);
+
+    // For u shows
+    $forUShow = $conn->query("SELECT shows.id AS id, shows.image AS image, shows.num_available AS num_available, shows.num_total AS num_total, shows.title AS title, shows.genre AS genre, shows.type AS type,
+    COUNT(views.show_id) AS count_views
+    FROM shows
+    JOIN views on shows.id = views.show_id 
+    GROUP BY (shows.id)
+    ORDER BY shows.created_at DESC");
+
+    $forUShow->execute();
+
+    $allForUShow = $forUShow->fetchAll(PDO::FETCH_OBJ);
 ?>
     <!-- Hero Section Begin -->
     <section class="hero">
@@ -233,58 +245,21 @@
         <div class="section-title">
             <h5>For You</h5>
         </div>
+        <?php foreach ($allForUShow as $forU) : ?>
         <div class="product__sidebar__comment__item">
             <div class="product__sidebar__comment__item__pic">
-                <img src="img/comment-1.jpg" alt="">
+                <img src="img/<?php echo $forU->image; ?>" alt="" style="width: 200px; height: 200px;">
             </div>
             <div class="product__sidebar__comment__item__text">
                 <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
+                    <li><?php echo $forU->genre; ?></li>
+                    <li><?php echo $forU->type; ?></li>
                 </ul>
-                <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                <h5><a href="<?php echo APPURL;?>/detail-movie.php?id=<?php echo $forU->id; ?>"><?php echo $forU->title; ?></a></h5>
+                <span><i class="fa fa-eye"></i> <?php echo $forU->count_views; ?></span>
             </div>
         </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/comment-2.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Shirogane Tamashii hen Kouhan sen</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/comment-3.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Kizumonogatari III: Reiket su-hen</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="img/comment-4.jpg" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Monogatari Series: Second Season</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>
 </div>

@@ -25,6 +25,7 @@
                     if(password_verify($password, $fetch['password'])){
                         $_SESSION['username'] = $fetch['username'];
                         $_SESSION['email'] = $fetch['email'];
+                        $_SESSION['user_id'] = $fetch['id'];
                         header("location: ".APPURL."");
                         // echo "<script>alert('LOGGED IN')</script>";
                     }
