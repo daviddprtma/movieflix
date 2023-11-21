@@ -60,8 +60,13 @@
         }
 
         // checking if user follow a show
+        if($_SESSION['user_id'] == null){
+            header("location: ".APPURL."/auth/login.php");
+        }
+        else{
         $checkFollowing = $conn->query("SELECT * FROM followings WHERE show_id='$id' AND user_id='$_SESSION[user_id]'");
         $checkFollowing->execute();
+        }
 
         // inserting comments
         if(isset($_POST['inserting_comments'])){
@@ -82,10 +87,25 @@
                     ":user_id"=> $user_id,
                     ":user_name"=> $user_name,
                 ]);         
-                echo "<script>alert('Comment added')</script>";
+                echo "<script>alert('Comment Added!')</script>";
             }
+            
         }
-    
+
+        // checking if user views the page or not
+        $checkView = $conn->query('SELECT * FROM views WHERE show_id = '.$id.' AND user_id = '.$_SESSION['user_id'].'');
+        $checkView->execute();
+
+        if($checkView->rowCount() > 0){
+            // do nothing
+        }
+        else{
+            $view = $conn->prepare("INSERT INTO views (show_id, user_id) VALUES (:show_id, :user_id)");
+            $view->execute([
+                ":show_id" => "$id",
+                ":user_id" => "$_SESSION[user_id]"
+            ]);
+        }
     }
 ?>
     <!-- Breadcrumb Begin -->
@@ -152,7 +172,7 @@
                                 <?php else :  ?>
                                     <button name="submit" type="submit" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</button>
                                 <?php endif; ?>
-                                <a href="anime-watching.html" class="watch-btn"><span>Watch Now</span> <i
+                                <a href="movie-watching.php?id=<?php echo $id; ?>&ep=1" class="watch-btn"><span>Watch Now</span> <i
                                     class="fa fa-angle-right"></i></a>
                                 </form>                                
                                 </div>

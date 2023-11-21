@@ -129,7 +129,7 @@
                                             <li><?php echo $trending->genre; ?></li>
                                             <li><?php echo $trending->type; ?></li>
                                         </ul>
-                                        <h5><a href="detail-movie.php?id=<?php echo $trending->id; ?>">One Piece</a></h5>
+                                        <h5><a href="detail-movie.php?id=<?php echo $trending->id; ?>"><?php echo $trending->title; ?></a></h5>
                                     </div>
                                 </div>
                             </div>
