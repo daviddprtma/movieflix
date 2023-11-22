@@ -61,7 +61,7 @@
 
         // checking if user follow a show
         if($_SESSION['user_id'] == null){
-            header("location: ".APPURL."/auth/login.php");
+            echo "<script>location.href='".APPURL."/auth/login.php'</script>";
         }
         else{
         $checkFollowing = $conn->query("SELECT * FROM followings WHERE show_id='$id' AND user_id='$_SESSION[user_id]'");
@@ -106,6 +106,9 @@
                 ":user_id" => "$_SESSION[user_id]"
             ]);
         }
+    }
+    else{
+        echo "<script>location.href='".APPURL."/404.php';</script>";
     }
 ?>
     <!-- Breadcrumb Begin -->

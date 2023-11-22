@@ -67,22 +67,25 @@
                                 <?php if(isset($_SESSION['username'])) :?>
                                 <li><a href="#"><?php echo $_SESSION['username']; ?> <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <li><a href="./categories.html">Magic</a></li>
-                                        <li><a href="./categories.html">Adventure</a></li>
+                                        
+                                        <li><a href="<?php echo APPURL;?>/users/followings.php">Followings</a></li>
                                         <li><a href="<?php echo APPURL; ?>/auth/logout.php">Logout</a></li>
                                     </ul>
                                 </li>
                                 <?php endif; ?>
+                                <?php if(!isset($_SESSION['username'])) : ?>
+                        <a href="<?php echo APPURL;?>/auth/login.php"><span class="icon_profile"></span></a>
+                        <?php endif; ?>
                             </ul>
                         </nav>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="header__right">
-                        <a href="#" class="search-switch"><span class="icon_search"></span></a>
-                        <?php if(!isset($_SESSION['username'])) : ?>
-                        <a href="<?php echo APPURL;?>/auth/login.php"><span class="icon_profile"></span></a>
-                        <?php endif; ?>
+                    <form action="<?php echo APPURL;?>/search.php" method="post" class="form-inline my-2 my-lg-0">
+                        <input name="keyword" style="margin-left: -150px;" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button name="submit" type="submit" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                     </div>
                 </div>
             </div>

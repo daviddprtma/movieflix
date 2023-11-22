@@ -26,7 +26,7 @@
                         $_SESSION['username'] = $fetch['username'];
                         $_SESSION['email'] = $fetch['email'];
                         $_SESSION['user_id'] = $fetch['id'];
-                        header("location: ".APPURL."");
+                        echo "<script>location.href='".APPURL."';</script>";
                         // echo "<script>alert('LOGGED IN')</script>";
                     }
                     else{

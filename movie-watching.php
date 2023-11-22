@@ -59,6 +59,9 @@
         }
     
     }
+    else{
+        echo "<script>location.href='".APPURL."/404.php';</script>";
+    }
 ?>
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">
