@@ -1,6 +1,8 @@
 <?php
     session_start();
     define("APPURL", "http://localhost/movieflix");
+    define("IMGURL", "http://localhost/movieflix/admin-panel/shows-admins/img");
+    define("VIDEOSURL", "http://localhost/movieflix/admin-panel/episodes-admins/videos");
 
     require dirname(dirname(__FILE__))."../config/config.php";
 
@@ -48,7 +50,7 @@
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="<?php echo APPURL;?>">
-                            <img src="<?php echo APPURL;?>/img/MovieFlix.png" alt="" width="100px">
+                            <img src="<?php echo IMGURL;?>/MovieFlix.png" alt="" width="100px">
                         </a>
                     </div>
                 </div>

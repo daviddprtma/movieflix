@@ -79,7 +79,7 @@
             <div class="hero__slider owl-carousel">
 
                 <?php foreach ($allShow as $all) : ?>
-                <div class="hero__items set-bg" data-setbg="img/<?php echo $all->image; ?>">
+                <div class="hero__items set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $all->image; ?>">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
@@ -120,7 +120,7 @@
                             <?php foreach ($allTrending as $trending) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/<?php echo $trending->image; ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $trending->image; ?>">
                                         <div class="ep"><?php echo $trending->num_available; ?> / <?php echo $trending->num_total; ?></div>
                                         <div class="view"><i class="fa fa-eye"></i> <?php echo $trending->count_views; ?></div>
                                     </div>
@@ -153,7 +153,7 @@
                             <?php foreach ($allAdventureShow as $adventure) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/<?php echo $adventure->image; ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $adventure->image; ?>">
                                         <div class="ep"><?php echo $adventure->num_available; ?> / <?php echo $adventure->num_total; ?></div>
                                         <div class="view"><i class="fa fa-eye"></i> <?php echo $adventure->count_views; ?></div>
                                     </div>
@@ -186,7 +186,7 @@
                             <?php foreach ($allrecentlyAddedShow as $recentlyAdded) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/<?php echo $recentlyAdded->image;?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $recentlyAdded->image;?>">
                                         <div class="ep"><?php echo $recentlyAdded->num_available;?> / <?php echo $recentlyAdded->num_total;?></div>
                                         <div class="view"><i class="fa fa-eye"></i> <?php echo $recentlyAdded->count_views;?></div>
                                     </div>
@@ -219,7 +219,7 @@
                             <?php foreach ($allLiveAction as $liveAction) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/<?php echo $liveAction->image; ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $liveAction->image; ?>">
                                         <div class="ep"><?php echo $liveAction->num_available; ?> / <?php echo $liveAction->num_total; ?></div>
                                         <div class="view"><i class="fa fa-eye"></i> <?php echo $liveAction->count_views; ?></div>
                                     </div>
@@ -248,7 +248,7 @@
         <?php foreach ($allForUShow as $forU) : ?>
         <div class="product__sidebar__comment__item">
             <div class="product__sidebar__comment__item__pic">
-                <img src="img/<?php echo $forU->image; ?>" alt="" style="width: 200px; height: 200px;">
+                <img src="<?php echo IMGURL;?>/<?php echo $forU->image; ?>" alt="" style="width: 200px; height: 200px;">
             </div>
             <div class="product__sidebar__comment__item__text">
                 <ul>

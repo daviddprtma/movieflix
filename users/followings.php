@@ -56,7 +56,7 @@
                             <?php foreach($allFollowings as $show) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="<?php echo APPURL;?>/img/<?php echo $show->image; ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $show->image; ?>">
                                         <div class="ep"><?php echo $show->num_available; ?> / <?php echo $show->num_total; ?></div>
                                     </div>
                                     <div class="product__item__text">

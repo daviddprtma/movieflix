@@ -70,7 +70,7 @@
                             <?php foreach($allShows as $show) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/<?php echo $show->image; ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $show->image; ?>">
                                         <div class="ep"><?php echo $show->num_available; ?> / <?php echo $show->num_total; ?></div>
                                         <div class="view"><i class="fa fa-eye"></i> <?php echo $show->count_views; ?></div>
                                     </div>
@@ -105,7 +105,7 @@
         <?php foreach($allForUShow as $show) : ?>
         <div class="product__sidebar__comment__item">
             <div class="product__sidebar__comment__item__pic">
-                <img src="img/<?php echo $show->image; ?>" alt="" style="width: 200px; height: 200px;">
+                <img src="<?php echo IMGURL;?>/<?php echo $show->image; ?>" alt="" style="width: 200px; height: 200px;">
             </div>
             <div class="product__sidebar__comment__item__text">
                 <ul>

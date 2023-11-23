@@ -133,7 +133,7 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="img/<?php echo $allDetailMovie->image;?>">
+                        <div class="anime__details__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $allDetailMovie->image;?>">
                             <div class="view"><i class="fa fa-eye"></i> <?php echo $allDetailMovie->count_views;?></div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                                 <h5>you might like...</h5>
                             </div>
                             <?php foreach($allForUShow as $forUShow):?>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/<?php echo $forUShow->image;?>">
+                            <div class="product__sidebar__view__item set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $forUShow->image;?>">
                                 <div class="ep"><?php echo $forUShow->num_available; ?> / <?php echo $forUShow->num_total; ?></div>
                                 <div class="view"><i class="fa fa-eye"></i> <?php echo $forUShow->count_views; ?></div>
                                 <h5><a href="<?php echo APPURL;?>/detail-movie.php?id=<?php echo $forUShow->id;?>"><?php echo $forUShow->title; ?></a></h5>

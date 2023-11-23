@@ -15,7 +15,7 @@ if(isset($_POST['submit'])){
     else{
         $keyword = $_POST['keyword'];
 
-        $search = $conn->query("SELECT * FROM shows WHERE title OR genre LIKE '%$keyword%'");
+        $search = $conn->query("SELECT * FROM shows WHERE title LIKE '%$keyword%'");
         $search->execute();
 
         $allSearch = $search->fetchAll(PDO::FETCH_OBJ);
@@ -58,7 +58,7 @@ if(isset($_POST['submit'])){
                             <?php foreach($allSearch as $show) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="<?php echo APPURL;?>/img/<?php echo $show->image; ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $show->image; ?>">
                                         <div class="ep"><?php echo $show->num_available; ?> / <?php echo $show->num_total; ?></div>
                                     </div>
                                     <div class="product__item__text">

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="footer__logo">
-                    <a href="./index.html"><img src="<?php echo APPURL; ?>/img/MovieFlix.png" alt="" width="100px"></a>
+                    <a href="<?php echo APPURL;?>"><img src="<?php echo IMGURL;?>/MovieFlix.png" alt="" width="100px"></a>
                 </div>
             </div>
             <div class="col-lg-6">

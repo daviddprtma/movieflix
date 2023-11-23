@@ -87,8 +87,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="anime__video__player">
-                        <video id="player" playsinline controls data-poster="<?php echo APPURL;?>/videos/<?php echo $grabEps->thumbnail; ?>">
-                            <source src="<?php echo APPURL;?>/videos/<?php echo $grabEps->video; ?>" type="video/mp4" />
+                        <video id="player" playsinline controls data-poster="<?php echo VIDEOSURL;?>/<?php echo $grabEps->thumbnail; ?>">
+                            <source src="<?php echo VIDEOSURL;?>/<?php echo $grabEps->video; ?>" type="video/mp4" />
                             <!-- Captions are optional -->
                             <!-- <track kind="captions" label="English captions" src="#" srclang="en" default /> -->
                         </video>

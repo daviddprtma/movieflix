@@ -67,7 +67,7 @@
                     <select name="type" class="form-select  form-control" aria-label="Default select example">
                       <option selected>Choose Type</option>
                       <option value="Tv Series">Tv Series</option>
-                      <option value="Movie">Movie</option>
+                      <option value="Movie Series">Movie</option>
                     </select>
                 </div>
                 <div class="form-outline mb-4 mt-4">
@@ -86,9 +86,11 @@
 
                     <select name="genre" class="form-select  form-control" aria-label="Default select example">
                       <option selected>Choose Genre</option>
-                      <option value="Tv Series">Magic</option>
-                      <option value="Movie">Action</option>
-                      <option value="Movie">Adventure</option>
+                      <option value="Action">Action</option>
+                      <option value="Adventure">Adventure</option>  
+                      <option value="Magic">Magic</option>
+                      <option value="Thriller">Thriller</option>
+                      <option value="Romance">Romance</option>
                     </select>
                 </div>
                 <div class="form-outline mb-4 mt-4">
