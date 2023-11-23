@@ -67,7 +67,7 @@
     FROM shows
     JOIN views on shows.id = views.show_id 
     GROUP BY (shows.id)
-    ORDER BY shows.created_at DESC");
+    ORDER BY shows.created_at ASC");
 
     $forUShow->execute();
 
@@ -173,7 +173,7 @@
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8">
                                 <div class="section-title">
-                                    <h4>Recently Added Shows</h4>
+                                    <h4>Recently Shows</h4>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">

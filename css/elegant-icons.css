@@ -853,6 +853,7 @@ you can use the generic selector below, but it's slower:
 }
 .social_instagram_circle:before {
 	content: "\e0b1";
+
 }
 .social_dribbble_circle:before {
 	content: "\e0b2";

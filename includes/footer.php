@@ -20,23 +20,17 @@
             <div class="col-lg-3">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                   Copyright &copy;<script>document.write(new Date().getFullYear());</script> MovieFlix
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-
-              </div>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                 <br> <a href="privacy-policy.php" target="_blank">Privacy Policy</a>
+                | <a href="terms-use.php" target="_blank">Terms Of Use</a>
+                | <a href="about.php" target="_blank">About</a>
+                | <a href="contact-us.php" target="_blank">Contact Us</a></p>
+            </div>
+            
           </div>
       </div>
   </footer>
   <!-- Footer Section End -->
-
-  <!-- Search model Begin -->
-  <div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch"><i class="icon_close"></i></div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
-    </div>
-</div>
 <!-- Search model end -->
 
 <!-- Js Plugins -->
