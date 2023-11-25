@@ -11,6 +11,12 @@
 
     $allShow = $shows->fetchAll(PDO::FETCH_OBJ);
 
+    // all Show
+    $shows2 = $conn->query('SELECT * FROM shows');
+    $shows2->execute();
+
+    $allShow2 = $shows2->fetchAll(PDO::FETCH_OBJ);
+
     // show trending
     $trendingShow = $conn->query("SELECT shows.id AS id, shows.image AS image, shows.num_available AS num_available, shows.num_total AS num_total, shows.title AS title, shows.genre AS genre, shows.type AS type,
     COUNT(views.show_id) AS count_views
@@ -104,6 +110,31 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="trending__product">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="section-title">
+                                    <h4>All Movie & TV Series</h4>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                      <?php foreach ($allShow2 as $shows2) : ?>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="<?php echo IMGURL;?>/<?php echo $shows2->image; ?>">
+                                        <div class="ep"><?php echo $shows2->num_available; ?> / <?php echo $shows2->num_total; ?></div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <ul>
+                                            <li><?php echo $shows2->genre; ?></li>
+                                            <li><?php echo $shows2->type; ?></li>
+                                        </ul>
+                                        <h5><a href="<?php echo APPURL;?>/detail-movie.php?id=<?php echo $shows2->id; ?>"><?php echo $shows2->title;?></a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8">
                                 <div class="section-title">
