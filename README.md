@@ -78,9 +78,3 @@ Distributed under the MIT License. See [LICENSE](https://github.com/daviddprtma/
 ## Authors
 
 * **David Pratama** - *Web Developer* - [David Pratama](https://github.com/daviddprtma) - *Author of the project*
-
-## Acknowledgements
-
-* []()
-* []()
-* []()
