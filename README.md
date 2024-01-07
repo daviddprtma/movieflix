@@ -10,14 +10,9 @@
     Welcome To MovieFlix - The Home For Streaming A Movie ✌️
     <br/>
     <br/>
-    <a href="https://github.com/daviddprtma/movieflix"><strong>Explore the docs »</strong></a>
-    <br/>
-    <br/>
-    <a href="https://github.com/daviddprtma/movieflix">View Demo</a>
-    .
     <a href="https://github.com/daviddprtma/movieflix/issues">Report Bug</a>
     .
-    <a href="https://github.com/daviddprtma/movieflix/issues">Request Feature</a>
+    <a href="https://github.com/daviddprtma/movieflix/discussions">Request Feature</a>
   </p>
 </p>
 
@@ -28,6 +23,7 @@
 * [About the Project](#about-the-project)
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
+  * [Installation](#installation)
 * [Contributing](#contributing)
 * [License](#license)
 * [Authors](#authors)
@@ -82,3 +78,9 @@ Distributed under the MIT License. See [LICENSE](https://github.com/daviddprtma/
 ## Authors
 
 * **David Pratama** - *Web Developer* - [David Pratama](https://github.com/daviddprtma) - *Author of the project*
+
+## Acknowledgements
+
+* []()
+* []()
+* []()
